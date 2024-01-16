@@ -56,6 +56,8 @@ const signin = async (req, res) => {
 
         let { email, password } = req.body;
 
+        console.log('email, password : ', email, password);
+
         let findByEmail = await UserService.getEmail(email)
 
         if (findByEmail.length > 0) {
@@ -77,7 +79,12 @@ const signin = async (req, res) => {
                 res.header('token', token).status(200).json({
                     message: 'success',
                     token: token,
-                    data: { firstName: findByEmail[0].firstName, lastName:  findByEmail[0].lastName }
+                    data: {
+                        id : findByEmail[0].id, 
+                        firstName: findByEmail[0].firstName, 
+                        lastName:  findByEmail[0].lastName,
+                        email:  findByEmail[0].email
+                    }
                 });
 
             }
